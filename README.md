@@ -4,6 +4,7 @@
 the software you need to run this system. install the app below on your PC/server
 - mosquitto
 - node-red
+- xampp
 
 ## SETUP
 ### Run Mosquitto
@@ -18,6 +19,14 @@ open the command prompt then type :
 cd \path to mosquitto folder\
 mosquitto -c mosquitto.conf -v
 ```
+
+### Make database
+1. Run apache module and Mysql module
+2. open phpmyadmin
+3. select import
+4. choose sensor_tab1.sql
+5. press import
+
 ### Run node-red
 open cmd and type :
 
@@ -27,9 +36,10 @@ node-red
 if you not configure the node-red yet :
 1. copy all the text inside node-red-conf.txt
 2. go to : localhost:1880
-3. import
+3. select import
 4. paste the text
 5. deploy
+
 
 ### Setup Main Device / Forwarder
 1. open the progam code of the main device
