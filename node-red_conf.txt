@@ -1,0 +1,307 @@
+[
+    {
+        "id": "cf4871d91546e1ac",
+        "type": "tab",
+        "label": "Flow 2s",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d1764b4de5ce5aad",
+        "type": "mqtt in",
+        "z": "cf4871d91546e1ac",
+        "name": "sensor1",
+        "topic": "esp32/sensor1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "10e78a89.5b4fd5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "774a26383134bf41",
+                "80a697e6c2e3e530",
+                "76d062fafbb68315"
+            ]
+        ]
+    },
+    {
+        "id": "9a1890dfcc9a3692",
+        "type": "mqtt in",
+        "z": "cf4871d91546e1ac",
+        "name": "sensor2",
+        "topic": "esp32/sensor2",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "10e78a89.5b4fd5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 540,
+        "wires": [
+            [
+                "a85b33d03ffbe6d1",
+                "a10337518aa3f880",
+                "76d062fafbb68315"
+            ]
+        ]
+    },
+    {
+        "id": "774a26383134bf41",
+        "type": "debug",
+        "z": "cf4871d91546e1ac",
+        "name": "msg.payload1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a85b33d03ffbe6d1",
+        "type": "debug",
+        "z": "cf4871d91546e1ac",
+        "name": "msg.payload2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "80a697e6c2e3e530",
+        "type": "ui_gauge",
+        "z": "cf4871d91546e1ac",
+        "name": "sensor1.graph",
+        "group": "73e08a29abce0a10",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Sensor 1 graph",
+        "label": "ug/m3",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 440,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a10337518aa3f880",
+        "type": "ui_gauge",
+        "z": "cf4871d91546e1ac",
+        "name": "sensor2.graph",
+        "group": "73e08a29abce0a10",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Sensor 2 graph",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "35",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 440,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "76d062fafbb68315",
+        "type": "join",
+        "z": "cf4871d91546e1ac",
+        "name": "mix",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "0.5",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "9652667a876e8f1d",
+                "94d615be5bb26061"
+            ]
+        ]
+    },
+    {
+        "id": "9652667a876e8f1d",
+        "type": "debug",
+        "z": "cf4871d91546e1ac",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "94d615be5bb26061",
+        "type": "function",
+        "z": "cf4871d91546e1ac",
+        "name": "send",
+        "func": "msg.topic = \"INSERT INTO sensor_tab1(sensor1_data,sensor2_data)\" +\n    \"VALUES ('\" + msg.payload[\"esp32/sensor1\"] + \"','\" + msg.payload[\"esp32/sensor2\"]+\"');\";\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 420,
+        "wires": [
+            [
+                "55dc0f9dc78f6d94"
+            ]
+        ]
+    },
+    {
+        "id": "55dc0f9dc78f6d94",
+        "type": "mysql",
+        "z": "cf4871d91546e1ac",
+        "mydb": "065daa438c4e0f83",
+        "name": "database",
+        "x": 680,
+        "y": 420,
+        "wires": [
+            [
+                "551c3d4144caf841"
+            ]
+        ]
+    },
+    {
+        "id": "551c3d4144caf841",
+        "type": "debug",
+        "z": "cf4871d91546e1ac",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0a6d9ff8577b2772",
+        "type": "ui_spacer",
+        "z": "cf4871d91546e1ac",
+        "name": "spacer",
+        "group": "73e08a29abce0a10",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "10e78a89.5b4fd5",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "73e08a29abce0a10",
+        "type": "ui_group",
+        "name": "view",
+        "tab": "436f392b7bd44aac",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "065daa438c4e0f83",
+        "type": "MySQLdatabase",
+        "name": "sensor_database",
+        "host": "localhost",
+        "port": "3306",
+        "db": "sensor_logger",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "436f392b7bd44aac",
+        "type": "ui_tab",
+        "name": "Sensor Monitor",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]
