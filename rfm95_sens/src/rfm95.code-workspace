@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../rfm95"
+		},
+		{
+			"name": "rfm95_sens",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
