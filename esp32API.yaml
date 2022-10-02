@@ -1,0 +1,28 @@
+---
+swagger: "2.0"
+info:
+  description: The API for the sensor monitoring
+  version: 1.0.0
+  title: ESP32 IOT
+host: localhost
+schemes:
+- http
+consumes:
+- text/plain
+produces:
+- text/plain
+paths:
+  /get-data:
+    get:
+      tags:
+      - async
+      description: request data
+      operationId: getData
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+            example: 22,33
+definitions: {}
